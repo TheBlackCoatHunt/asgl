@@ -50,7 +50,7 @@ class WEIGHTS:
     # PREPROCESSING ###################################################################################################
 
     def _preprocessing(self, power_weight):
-        if isinstance(power_weight, (np.int, np.float)):
+        if isinstance(power_weight, (np.int64, np.float64)):
             power_weight = [power_weight]
         return power_weight
 
