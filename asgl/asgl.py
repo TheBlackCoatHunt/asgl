@@ -775,6 +775,23 @@ class ASGL:
             prediction_list.append(np.dot(x_new, elt))
         return prediction_list
 
+    def predict_2(self, x_new):
+        """
+        To be executed after fitting a model. Given a new dataset, this function produces predictions for that data
+        considering the different model coefficients output provided by function fit
+        """
+        if self.intercept:
+            x_new = np.c_[np.ones(x_new.shape[0]), x_new]
+        if x_new.shape[1] != len(self.coef_[0]):
+            logging.error('Model dimension and new data dimension does not match')
+            raise ValueError('Model dimension and new data dimension does not match')
+        # Store predictions in a list
+        prediction_list = []
+        for elt in self.coef_:
+            prediction_list.append(np.dot(x_new, elt))
+        return prediction_list[0] #to bypass a bug when using SHAP
+
+    
     # NUMBER OF PARAMETERS ############################################################################################
 
     def _num_parameters(self):
